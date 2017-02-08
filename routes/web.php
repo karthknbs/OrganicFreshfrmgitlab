@@ -22,3 +22,9 @@ Route::get('/home', 'HomeController@index');
 
 //Admin Routes Starts Here....
 Route::get('/User','HomeController@Usercount');
+Route::resource('/category','Admin\CategoryController');
+Route::resource('/category_insert','Admin\CategoryController');
+Route::resource('cate_id','Admin\CategoryController');
+//product
+Route::resource('/products','Admin\ProductController');
+Route::resource('/product_insert','Admin\ProductController');
