@@ -28,3 +28,5 @@ Route::resource('cate_id','Admin\CategoryController');
 //product
 Route::resource('/products','Admin\ProductController');
 Route::resource('/product_insert','Admin\ProductController');
+
+
