@@ -30,3 +30,8 @@ Route::resource('/products','Admin\ProductController');
 Route::resource('/product_insert','Admin\ProductController');
 
 
+
+
+
+
+
