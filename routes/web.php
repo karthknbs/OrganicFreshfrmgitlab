@@ -12,7 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $category = App\Categoryy::where('Active','=',1)->get();
+    $products = App\Product::where('discount_price','!=',null)->get();
+   // return $products;
+    return view('homepage',compact('category','products'));
 });
 
 Auth::routes();
@@ -21,7 +24,7 @@ Route::get('register/verify/{token}','Auth\RegisterController@verify');
 Route::get('/home', 'HomeController@index');
 
 //Admin Routes Starts Here....
-Route::get('/User','HomeController@Usercount');
+Route::resource('/admin','Admin\HomeController');
 Route::resource('/category','Admin\CategoryController');
 Route::resource('/category_insert','Admin\CategoryController');
 Route::resource('cate_id','Admin\CategoryController');
