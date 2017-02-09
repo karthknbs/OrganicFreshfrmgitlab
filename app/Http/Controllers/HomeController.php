@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use App\Categoryy;
+use App\Product;
 class HomeController extends Controller
 {
     /**
@@ -24,14 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->isAdmin==1)
-        {
-          //  $users = User::count();
-            return view('Admin.home');
-        }else{
-            return view('home');
-        }
-
+        $category = Categoryy::where('Active','=',1)->get();
+        $products = Product::where('discount_price','!=',null)->get();
+         return view('homepage',compact('category','products'));
     }
 
     /**
