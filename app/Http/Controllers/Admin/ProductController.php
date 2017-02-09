@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Categoryy;
+
 use App\Http\Requests\Product\ProductStore;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
+use Session;
 use Illuminate\Contracts\Database\QueryException;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class ProductController extends Controller
@@ -41,35 +43,49 @@ class ProductController extends Controller
      */
     public function store(ProductStore $request)
     {
-        return "hi";
 
-      /*  try{
-            if($request->file('image')->isValid()){
-                $path = $request->file('image')->store('public/images');
-                $path = str_replace('public/images/', '', $path);
-              // print_r($request->get('category_id'));
-                $data = [
-                    'product_name' =>$request->get('product_name'),
-                    'category_id'  =>$request->get('category_id'),
-                    'image'    =>$path,
-                    'active'  =>$request->get('active'),
-                    'quantity' =>$request->get('quantiy'),
-                    'price'  =>$request->get('price'),
-                    'unit'  =>$request->get('unit')
-                ];
-                try{
-                    Product::create($data);
-                }catch (FileException $exception){
-                    return response()->json($exception->getMessage());
-                }
-            }
+        try{
+               if($request->file('image')->isValid()){
+                   $path = $request->file('image')->store('public/images');
+                   $path = str_replace('public/images/', '', $path);
+                 // print_r($request->get('product_name'));
+                 if($request->get('discount_price')==null){
+                   $data = [
+                       'product_name' =>$request->get('product_name'),
+                       'category_id'  =>$request->get('category_id'),
+                       'image'    =>$path,
+                       'Active'  =>$request->get('Active'),
+                       'quantity' =>$request->get('quantity'),
+                       'price'  =>$request->get('price'),
+                       'unit'  =>$request->get('unit'),
+                      // 'discount_price' =>$request->get('discount_price'),
+                   ];
+                 }
+                 else{
+                     $data = [
+                         'product_name' =>$request->get('product_name'),
+                         'category_id'  =>$request->get('category_id'),
+                         'image'    =>$path,
+                         'Active'  =>$request->get('Active'),
+                         'quantity' =>$request->get('quantity'),
+                         'price'  =>$request->get('price'),
+                         'unit'  =>$request->get('unit'),
+                          'discount_price' =>$request->get('discount_price'),
+                     ];
+                 }
+                   try{
+                       Product::create($data);
+                   }catch (FileException $exception){
+                       return response()->json($exception->getMessage());
+                   }
+               }
 
-        }
-        catch (FileException $exception){
-            return response()->json($exception->getMessage());
-        }
-        Session::flash('message', 'Inserted Successfully');
-        return redirect()->back();*/
+           }
+           catch (FileException $exception){
+               return response()->json($exception->getMessage());
+           }
+           Session::flash('message', 'Inserted Successfully');
+           return redirect()->back();
     }
 
     /**
