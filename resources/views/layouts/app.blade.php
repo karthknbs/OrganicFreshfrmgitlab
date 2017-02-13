@@ -59,6 +59,9 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    @if(Auth::user()->isAdmin==1)
+                                    <li><a href="{{ url('/admin') }}">Dashboard</a> </li>
+                                    @endif
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();

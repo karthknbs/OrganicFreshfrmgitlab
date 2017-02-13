@@ -292,13 +292,13 @@
                         <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span class="fa arrow"></span></a>
+                        <a href=""><i class="fa fa-bar-chart-o fa-fw"></i> Category<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="">Categories</a>
+                                <a href="{{ url('/category') }}">Categories</a>
                             </li>
                             <li>
-                                <a href="morris.html">Morris.js Charts</a>
+                                <a href="{{ url('/products') }}">Products</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -408,6 +408,11 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="{{ url('Admin/vendor/metisMenu/metisMenu.min.js') }}"></script>
 
+<!-- DataTables JavaScript -->
+<script src="{{url('Admin/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('Admin/vendor/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{url('Admin/vendor/datatables-responsive/dataTables.responsive.js')}}"></script>
+
 <!-- Morris Charts JavaScript -->
 <script src="{{ url('Admin/vendor/raphael/raphael.min.js') }}"></script>
 <script src="{{  url('Admin/vendor/morrisjs/morris.min.js') }}"></script>
@@ -418,6 +423,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.min.js"></script>
 <script>
     var socket = io.connect('localhost:8890');
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
 </script>
 
 </body>

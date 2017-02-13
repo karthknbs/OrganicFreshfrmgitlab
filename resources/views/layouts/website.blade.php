@@ -41,11 +41,106 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script type="text/javascript" src="{{ url('js/jquery-1.11.1.min.js') }}"></script>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
+            $(".dec").hide();
             $(".scroll").click(function (event) {
                 event.preventDefault();
                 $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
             });
+             $('[data-btn-id]').click(function (e) {
+                 alert($('[data-id]').val());
+             });
+
+
         });
+       function incrementValue(val)
+        {
+            var product_id = val;
+            var value = parseInt(document.getElementById('number'+product_id).value, 10);
+            value = isNaN(value) ? 0 : value;
+            if(value<10){
+                value++;
+                document.getElementById('number'+product_id).value = value;
+            }
+            $.ajax({
+                url:'/CartInc',
+                type:'POST',
+                data:{product_id:product_id,"_token": "{{ csrf_token() }}"},
+                dataType:'JSON',
+                success:function(data)
+                {
+                    alert(data);
+                }
+            })
+        }
+        function decrementValue(val) {
+           var product_id = val;
+            var value = parseInt(document.getElementById('number'+product_id).value, 10);
+            value = isNaN(value) ? 0 : value;
+            if (value > 1) {
+                value--;
+                document.getElementById('number'+product_id).value = value;
+            }
+            $.ajax({
+                url:'/CartDec',
+                type:'POST',
+                data:{product_id:product_id,"_token": "{{ csrf_token() }}"},
+                dataType:'JSON',
+                success:function(data)
+                {
+                    alert(data);
+                }
+            })
+        }
+
+            function  qty(val,val1,val2,val3,val4) {
+           var product_id = val;
+           var price = val1;
+           var name = val2;
+           var quantity = val3;
+           var unit = val4;
+           $("#Add"+product_id).hide();
+           $("#inc"+product_id).show();
+           ///alert(val);
+           var qty = document.getElementById('quantity'+val).value;
+           $.ajax({
+              url:'/cart_insert',
+              type:'POST',
+               data:{product_id:product_id,price:price,name:name,quantity:quantity,unit:unit,qty:qty,"_token": "{{ csrf_token() }}"},
+               dataType:'JSON',
+               success:function (data) {
+                  console.log(data);
+
+               }
+           });
+    }
+       function edit(val) {
+           var product_id = val;
+         //  alert(product_id);
+           var qty = document.getElementById('qty'+product_id).value;
+           //alert(qty);
+           $.ajax({
+               url:'/Cart_edit',
+               type:'POST',
+               data:{product_id:product_id,qty:qty,"_token": "{{ csrf_token() }}"},
+               dataType:'JSON',
+               success:function (data) {
+                   window.location.href="{{ url('/display') }}";
+               }
+           })
+       }
+      function deleteCart(val) {
+          var product_id =val;
+          $.ajax({
+              url:'/delete_Cart',
+              type:'POST',
+              data:{product_id:product_id,"_token": "{{ csrf_token() }}"},
+              dataType:'JSON',
+              success:function (data) {
+                  alert(data);
+                  window.location.href="{{ url('/display') }}";
+              }
+          })
+      }
     </script>
     <!-- start-smoth-scrolling -->
 </head>
@@ -57,19 +152,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
     <div class="w3l_search">
         <form action="#" method="post">
-            <input type="text" name="Product" value="Search a product..." onfocus="this.value = '';"
+            <input type="text" name="Product" value="{{ count(Cart::content()) }}" onfocus="this.value = '';"
                    onblur="if (this.value == '') {this.value = 'Search a product...';}" required="">
             <input type="submit" value=" ">
         </form>
     </div>
+    <div class="w3l_search" id="count">
+
+    </div>
     <div class="product_list_header">
-        <form action="#" method="post" class="last">
+
             <fieldset>
-                <input type="hidden" name="cmd" value="_cart"/>
-                <input type="hidden" name="display" value="1"/>
-                <input type="submit" name="submit" value="View your cart" class="button"/>
+                <a  href="{{ url('display') }}" class="button">View Cart</a>
+               {{-- <input type="submit" name="submit" value="View your cart" class="button"/>--}}
             </fieldset>
-        </form>
+
     </div>
     <div class="w3l_header_right">
         <ul>
@@ -150,6 +247,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     });
 </script>
 <!-- //script-for sticky-nav -->
+
 @yield('content')
 
 
@@ -205,12 +303,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <ul class="w3_footer_grid_list1">
                 <li><label class="fa fa-twitter" aria-hidden="true"></label><i>01 day ago</i><span>Non numquam <a
                                 href="#">http://sd.ds/13jklf#</a>
-						eius modi tempora incidunt ut labore et
-						<a href="#">http://sd.ds/1389kjklf#</a>quo nulla.</span></li>
+     eius modi tempora incidunt ut labore et
+     <a href="#">http://sd.ds/1389kjklf#</a>quo nulla.</span></li>
                 <li><label class="fa fa-twitter" aria-hidden="true"></label><i>02 day ago</i><span>Con numquam <a
                                 href="#">http://fd.uf/56hfg#</a>
-						eius modi tempora incidunt ut labore et
-						<a href="#">http://fd.uf/56hfg#</a>quo nulla.</span></li>
+     eius modi tempora incidunt ut labore et
+     <a href="#">http://fd.uf/56hfg#</a>quo nulla.</span></li>
             </ul>
         </div>
         <div class="clearfix"></div>
