@@ -36,5 +36,12 @@ Route::resource('/product_insert','Admin\ProductController');
 
 
 
-
-
+//Main Routes Starts here..
+Route::resource('/CategoryProduct','Site\ProductCategoryController');
+Route::post('/cart_insert','CartController@cart_insert');
+Route::post('/CartInc','CartController@cartIncrement');
+Route::post('/CartDec','CartController@cartDecrement');
+Route::get('/Cart','CartController@CartCount');
+Route::get('/display','CartController@index');
+Route::post('/Cart_edit','CartController@edit_Cart');
+Route::post('/delete_Cart','CartController@Cart_delete');
