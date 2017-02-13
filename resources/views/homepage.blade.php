@@ -19,51 +19,52 @@
                 <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                     <ul class="nav navbar-nav nav_1">
                         @foreach($category as $cat)
-                            <li><a href="">{{ $cat->category_name }}</a></li>
+                            <li><a href="{{ url('CategoryProduct/'.$cat->id) }}">{{ $cat->category_name }}</a></li>
                         @endforeach
-                        {{--<li><a href="products.html">Branded Foods</a></li>
-                        <li><a href="household.html">Households</a></li>
-                        <li class="dropdown mega-dropdown active">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Veggies & Fruits<span class="caret"></span></a>
-                            <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-                                <div class="w3ls_vegetables">
-                                    <ul>
-                                        <li><a href="vegetables.html">Vegetables</a></li>
-                                        <li><a href="vegetables.html">Fruits</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="kitchen.html">Kitchen</a></li>
-                        <li><a href="short-codes.html">Short Codes</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Beverages<span class="caret"></span></a>
-                            <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-                                <div class="w3ls_vegetables">
-                                    <ul>
-                                        <li><a href="drinks.html">Soft Drinks</a></li>
-                                        <li><a href="drinks.html">Juices</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="pet.html">Pet Food</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Frozen Foods<span class="caret"></span></a>
-                            <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-                                <div class="w3ls_vegetables">
-                                    <ul>
-                                        <li><a href="frozen.html">Frozen Snacks</a></li>
-                                        <li><a href="frozen.html">Frozen Nonveg</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
+                        {{--   <li><a href="products.html">Branded Foods</a></li>
+                                <li><a href="household.html">Households</a></li>
+                                <li class="dropdown mega-dropdown active">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Veggies & Fruits<span class="caret"></span></a>
+                                    <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
+                                        <div class="w3ls_vegetables">
+                                            <ul>
+                                                <li><a href="vegetables.html">Vegetables</a></li>
+                                                <li><a href="vegetables.html">Fruits</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a href="kitchen.html">Kitchen</a></li>
+                                <li><a href="short-codes.html">Short Codes</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Beverages<span class="caret"></span></a>
+                                    <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
+                                        <div class="w3ls_vegetables">
+                                            <ul>
+                                                <li><a href="drinks.html">Soft Drinks</a></li>
+                                                <li><a href="drinks.html">Juices</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a href="pet.html">Pet Food</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Frozen Foods<span class="caret"></span></a>
+                                    <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
+                                        <div class="w3ls_vegetables">
+                                            <ul>
+                                                <li><a href="frozen.html">Frozen Snacks</a></li>
+                                                <li><a href="frozen.html">Frozen Nonveg</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
                         <li><a href="bread.html">Bread & Bakery</a></li>--}}
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </nav>
         </div>
+
         <div class="w3l_banner_nav_right">
             <section class="slider">
                 <div class="flexslider">
@@ -159,20 +160,20 @@
                                 <figure>
                                     <div class="snipcart-item block" >
                                         <div class="snipcart-thumb">
-                                            <a href="single.html"><img title=" " alt=" " src="{{ asset('storage/images/'. $product->image) }}" /></a>
+                                            <a href="single.html"><img title=" " alt=" " src="{{ asset('storage/images/'. $product->image) }}" height="100px" width="100px"/></a>
                                             <p>{{ $product->product_name }}({{ $product->quantity }} {{$product->unit}})</p>
                                             <h4>Rs.{{ $product->price }} <span>{{ $product->discount_price }}</span></h4>
 
                                         </div>
                                         <div class="snipcart-details top_brand_home_details">
-                                            <form action="#" method="post">
+                                            <form action="" method="post">
                                                 <fieldset>
                                                     <input type="hidden" name="cmd" value="_cart" />
                                                     <input type="hidden" name="add" value="1" />
                                                     <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="Fortune Sunflower Oil" />
-                                                    <input type="hidden" name="amount" value="7.99" />
-                                                    <input type="hidden" name="discount_amount" value="1.00" />
+                                                    <input type="hidden" name="item_name" value="{{ $product->product_name }}" />
+                                                    <input type="hidden" name="amount" value="{{ $product->price }}" />
+                                                    <input type="hidden" name="discount_amount" value="{{ $product->discount_price }}" />
                                                     <input type="hidden" name="currency_code" value="USD" />
                                                     <input type="hidden" name="return" value=" " />
                                                     <input type="hidden" name="cancel_return" value=" " />
@@ -295,7 +296,7 @@
                 <div class="clearfix"> </div>--}}
             </div>
         </div>
-    </div>
+      </div>
     <!-- //top-brands -->
     <!-- fresh-vegetables -->
     <div class="fresh-vegetables">
